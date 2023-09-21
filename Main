@@ -1,0 +1,20 @@
+public class Main {
+    public static void main(String[] args) {
+        CinemaTicketSystem ticketSystem = new CinemaTicketSystem();
+
+        ticketSystem.createUser("benutzer1", "passwort123");
+
+        boolean loggedIn = ticketSystem.login("benutzer1", "passwort123");
+        if (loggedIn) {
+            System.out.println("Anmeldung erfolgreich");
+        } else {
+            System.out.println("Anmeldung fehlgeschlagen");
+        }
+
+        ticketSystem.changePassword("benutzer1", "neuespasswort");
+
+        ticketSystem.deleteUser("benutzer1");
+
+        ticketSystem.addPaymentMethod("benutzer2", "Kreditkarte");
+    }
+}
