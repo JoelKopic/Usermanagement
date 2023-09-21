@@ -1,7 +1,7 @@
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 class User {
@@ -40,75 +40,13 @@ class User {
     }
 }
 
-class Movie {
-    private String title;
-    private String description;
 
-    public Movie(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-}
-
-
-
-class Ticket {
-    private Movie movie;
-    private String seat;
-    private double price;
-
-    public Ticket(Movie movie, String seat, double price) {
-        this.movie = movie;
-        this.seat = seat;
-        this.price = price;
-    }
-
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
-    public String getSeat() {
-        return seat;
-    }
-
-    public void setSeat(String seat) {
-        this.seat = seat;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-}
 
 
 public class CinemaTicketSystem {
     private Map<String, User> userDB = new HashMap<>();
-    private List<Movie> movies = new ArrayList<>();
-    private List<Ticket> tickets = new ArrayList<>();
+
+
     HashMap<Integer, Employee> employees = new HashMap<>();
 
     // Methode zum Registrieren eines Benutzers
@@ -183,27 +121,4 @@ public class CinemaTicketSystem {
 
 
     }
-    public void addMovie(String title, String description) {
-        Movie movie = new Movie(title, description);
-        movies.add(movie);
     }
-
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
-
-
-    public void buyTicket(String username, Movie movie, String seat, double price) {
-        if (userDB.containsKey(username)) {
-            Ticket ticket = new Ticket(movie, seat, price);
-            tickets.add(ticket);
-        }
-    }
-
-
-
-}
-
-
-
