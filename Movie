@@ -1,0 +1,207 @@
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
+
+class User {
+    private String username;
+    private String password;
+    private String paymentMethod;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.paymentMethod = null;
+    }
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setUsername(String username){
+        this.username= username;
+    }
+    public String getUsername(){
+        return username;
+    }
+}
+
+class Movie {
+    private String title;
+    private String description;
+
+    public Movie(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+}
+
+
+
+class Ticket {
+    private Movie movie;
+    private String seat;
+    private double price;
+
+    public Ticket(Movie movie, String seat, double price) {
+        this.movie = movie;
+        this.seat = seat;
+        this.price = price;
+    }
+
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public String getSeat() {
+        return seat;
+    }
+
+    public void setSeat(String seat) {
+        this.seat = seat;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+}
+
+
+public class CinemaTicketSystem {
+    private Map<String, User> userDB = new HashMap<>();
+    private List<Movie> movies = new ArrayList<>();
+    private List<Ticket> tickets = new ArrayList<>();
+    HashMap<Integer, Employee> employees = new HashMap<>();
+
+    // Methode zum Registrieren eines Benutzers
+    public void createUser(String username, String password) {
+        User user = new User(username, password);
+        userDB.put(username, user);
+    }
+    //Angestellten ins System miteinbringen
+    public void addEmployee(Employee employee) {
+        employees.put(employee.id, employee);
+    }
+
+    public Employee getEmployeeById(int id) {
+        return employees.get(id);
+    }
+
+    // Methode zum Anmelden eines Benutzers
+    public boolean login(String username, String password) {
+        if (userDB.containsKey(username)) {
+            User user = userDB.get(username);
+            return user.getPassword().equals(password);
+        }
+        return false;
+    }
+
+    // Methode zum Ändern des Passworts eines Benutzers
+    public void changePassword(String username, String newPassword) {
+        if (userDB.containsKey(username)) {
+            User user = userDB.get(username);
+            user.setPassword(newPassword);
+        }
+    }
+
+    // Methode zum Löschen eines Benutzers
+    public void deleteUser(String username) {
+        if (userDB.containsKey(username)) {
+            userDB.remove(username);
+        }
+    }
+
+
+    public void addPaymentMethod(String username, String paymentMethod) {
+        if (userDB.containsKey(username)) {
+            User user = userDB.get(username);
+            user.setPaymentMethod(paymentMethod);
+        }
+    }
+
+    public static void main(String[] args) {
+        CinemaTicketSystem ticketSystem = new CinemaTicketSystem();
+
+
+        ticketSystem.createUser("benutzer1", "passwort123");
+
+
+        boolean loggedIn = ticketSystem.login("benutzer1", "passwort123");
+        if (loggedIn) {
+            System.out.println("Anmeldung erfolgreich");
+        } else {
+            System.out.println("Anmeldung fehlgeschlagen");
+        }
+
+
+        ticketSystem.changePassword("benutzer1", "neuespasswort");
+
+
+        ticketSystem.deleteUser("benutzer1");
+
+
+        ticketSystem.addPaymentMethod("benutzer2", "Kreditkarte");
+
+
+
+    }
+    public void addMovie(String title, String description) {
+        Movie movie = new Movie(title, description);
+        movies.add(movie);
+    }
+
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+
+    public void buyTicket(String username, Movie movie, String seat, double price) {
+        if (userDB.containsKey(username)) {
+            Ticket ticket = new Ticket(movie, seat, price);
+            tickets.add(ticket);
+        }
+    }
+
+
+
+}
